@@ -1,0 +1,16 @@
+1. 터틀봇 가제보를 실행
+- ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
+
+2. 시각화 도구를 통해 실시간 LiDAR의 값 확인
+- ros2 launch turtlebot3_catographer catographer.launch.py use_sim_time:=True
+(Gazebo를 사용하는 경우 시뮬레이터 시간 /clock을 기준으로 하므로 use_sim_time을 반드시 설정해야 함.)
+
+3. 키보드로 조작하여 map 제작
+- ros2 run teleop_twist_keyboard teleop_twist_keyboard
+--> map 제작이 완료되면 키보드 조작을 종료하고 map을 저장
+--- ros2 run nav2_map_server map_saver_cli -f ./map(원하는 이름)(ex. ./415)
+(실제 맵이 저장되는 위치 : /opt/ros/foxy/share/turtlebot3_navigation2/map/map.pgm + map.yaml)
+
+4. nav2실행(자율주행)
+- ros2 launch turtlebot3_gazebo turtlebot3_world.launch.pt(첫번째 터미널)
+- ros2 launch turtlebot3_navigation2 navigation2.launch.py map:=./map.yaml

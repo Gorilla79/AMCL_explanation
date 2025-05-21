@@ -1,0 +1,27 @@
+sudo apt update
+sudo apt install -y gazebo11
+
+sudo apt install -y ros-foxy-rviz2 (or sudo apt install rviz2)
+ros2 run rviz2 rviz2 --> source /opt/ros/foxy/setup.bash
+
+# 현재 여러분 폴더가 홈 폴더에 ~/.bashrc에 추가!(아래의 내용)
+source /opt/ros/foxy/setup.bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/usr/share/gazebo-11/models
+
+
+sudo apt install -y ros-foxy-turtlebot3* 
+ls /opt/ros/foxy/share/turtle -> tab
+
+# 홈 폴더에 ~/.bashrc에 추가!(아래의 내용)
+export TURTLEBOT3_MODEL=burger 
+
+source /opt/ros/foxy/setup.bash
+
+# 1번째 터미널 창
+ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py 
+
+# 2번째 터미널 창
+ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
+
+# 3번째 터미널 창
+ros2 run teleop_twist_keyboard teleop_twist_keyboard 
